@@ -37,7 +37,7 @@ app.use('/users', users);
 
 app.get('/api/customer/items', (req, res) => {
   Item.find().then(foundItems => {
-    res.send(foundItems);
+    res.send({ status: "success", foundItems });
   })
     .catch(err => {
       res.status(500).send(err);
@@ -57,7 +57,7 @@ app.post('/api/vendor/items', (req, res) => {
   let newItem = new Item(itemData);
 
   newItem.save().then(savedItem => {
-    res.send(savedItem);
+    res.send({ status: 'success', savedItem });
   })
     .catch(err => {
       res.status(500).send(err);
@@ -67,7 +67,7 @@ app.post('/api/vendor/items', (req, res) => {
 app.put('/api/vendor/items/itemId', (req, res) => {
   Item.updateOne({ _id: req.params.id }, req.body)
     .then(updatedItem => {
-      res.send(updatedItem);
+      res.send({ status: 'success', updatedItem });
     })
     .catch(err => {
       res.status(500).send(err)
